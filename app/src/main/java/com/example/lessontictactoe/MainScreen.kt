@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,22 +17,34 @@ import androidx.compose.ui.unit.dp
 import com.example.lessontictactoe.ui.theme.LessonTicTacToeTheme
 
 @Composable
-fun MainScreen(modifier: Modifier= Modifier)
-{
-    Column(
-        modifier=modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text="Tic Tac Toe",
-            style = MaterialTheme.typography.headlineMedium,
-            textAlign= TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        GameBoard()
+fun MainScreen(modifier: Modifier= Modifier) {
+    var isDarkTheme by remember { mutableStateOf(false) }
+
+    LessonTicTacToeTheme(darkTheme = isDarkTheme) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button(onClick = { isDarkTheme = !isDarkTheme }) {
+                    Text(if (isDarkTheme) "Light theme" else "Dark theme")
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Tic Tac Toe",
+                    style = MaterialTheme.typography.headlineMedium,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                GameBoard()
+
+            }
+        }
     }
 }
 
